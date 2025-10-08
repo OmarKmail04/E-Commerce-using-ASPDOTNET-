@@ -1,0 +1,74 @@
+﻿using KEShop_Api_N_Tier_Art.BLL.Services.Interfaces;
+using KEShop_Api_N_Tier_Art.DAL.DTO.Requests;
+using KEShop_Api_N_Tier_Art.DAL.DTO.Responses;
+using KEShop_Api_N_Tier_Art.DAL.Models;
+using KEShop_Api_N_Tier_Art.DAL.Repositories.Interfaces;
+using Mapster;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace KEShop_Api_N_Tier_Art.BLL.Services.Classes
+{
+    public class BrandService : GenericService<BrandRequest, BrandResponses, Brand>, IBrandService
+    {
+        private readonly IBrandRepository _repository;
+        private readonly IFileService _fileService;
+
+        public BrandService(IBrandRepository repository, IFileService fileService) : base(repository)
+        {
+            _repository = repository;
+            _fileService = fileService;
+        }
+
+        public async Task<int> CreateFile(BrandRequest request)
+        {
+
+            var entity = request.Adapt<Brand>();
+            entity.CreatedAt = DateTime.Now;
+
+            if (request.MainImage != null)
+            {
+                var imagePath = await _fileService.UploadAsync(request.MainImage);
+                entity.MainImage = imagePath;
+            }
+
+            return _repository.Add(entity);
+        }
+
+        public async Task<int> UpdateFile(int id, BrandRequest request)
+        {
+          
+            var existingBrand = await _repository.GetAsync(id);
+
+            if (existingBrand == null)
+            {
+                return 0; 
+            }
+
+           
+            request.Adapt(existingBrand);
+            existingBrand.UpdatedAt = DateTime.Now;
+
+           
+            if (request.MainImage != null)
+            {
+                
+                if (!string.IsNullOrEmpty(existingBrand.MainImage))
+                {
+                    _fileService.Delete(existingBrand.MainImage);
+                }
+
+               
+                var newImagePath = await _fileService.UploadAsync(request.MainImage);
+                existingBrand.MainImage = newImagePath;
+            }
+
+         
+            return _repository.Update(existingBrand);
+        }
+    }
+}

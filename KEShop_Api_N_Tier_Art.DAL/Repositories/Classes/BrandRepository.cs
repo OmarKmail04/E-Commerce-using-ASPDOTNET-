@@ -1,0 +1,28 @@
+﻿using KEShop_Api_N_Tier_Art.DAL.Data;
+using KEShop_Api_N_Tier_Art.DAL.Models;
+using KEShop_Api_N_Tier_Art.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+
+
+namespace KEShop_Api_N_Tier_Art.DAL.Repositories.Classes
+{
+
+    public class BrandRepository : GenericRepository<Brand>, IBrandRepository
+    {
+        private readonly ApplictionDbContext _context;
+
+        public BrandRepository(ApplictionDbContext context) : base(context)
+        {
+            _context = context;
+        }
+
+        public async Task<Brand> GetAsync(int id)
+        {
+            return await _context.Brands.FirstOrDefaultAsync(b => b.Id == id);
+        }
+    }
+}
