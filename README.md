@@ -25,12 +25,12 @@ The application follows a structured **3-Layer Architecture**:
 
 ```
 
-EEcommerce
+Ecommerce
 │
-├── Ecom.PL → Presentation Layer (Web / MVC)
-├── Ecom.BLL → Business Logic Layer (Services)
-├── Ecom.DAL → Data Access Layer (EF Core + Repositories)
-└── EEcommerce.sln
+├── .PL → Presentation Layer (Web / MVC)
+├── .BLL → Business Logic Layer (Services)
+├── .DAL → Data Access Layer (EF Core + Repositories)
+└── .sln
 
 ```
 
