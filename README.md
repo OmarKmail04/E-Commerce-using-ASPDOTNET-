@@ -1,5 +1,13 @@
 # KEshop – ASP.NET Core E-Commerce Platform
 
+![.NET](https://img.shields.io/badge/.NET-9.0-blue)
+![C#](https://img.shields.io/badge/C%23-Backend-green)
+![Architecture](https://img.shields.io/badge/Architecture-3Tier-orange)
+![JWT](https://img.shields.io/badge/Auth-JWT-red)
+![Stripe](https://img.shields.io/badge/Payments-Stripe-purple)
+
+---
+
 ## 📌 Overview
 
  a full-featured, multi-layered E-Commerce web application built using **ASP.NET Core (.NET 9)** and **Entity Framework Core**.
@@ -25,7 +33,7 @@ The application follows a structured **3-Layer Architecture**:
 
 ```
 
-Ecommerce
+KEshop
 │
 ├── .PL → Presentation Layer (Web / MVC)
 ├── .BLL → Business Logic Layer (Services)
@@ -174,6 +182,7 @@ To access protected endpoints, include the token in the request header:
 
 ```
 Authorization: Bearer {your_token}
+
 ```
 Token validation includes:
 
@@ -232,18 +241,26 @@ The system uses Layered Architecture (3-Tier) to ensure:
 ---
 
 ## Technologies Used
+
+### Backend
 - ASP.NET Core (.NET 9)
 - C#
 - Entity Framework Core
 - SQL Server
+
+### Security
 - ASP.NET Core Identity
 - JWT Bearer Authentication
-- Mapster (Object Mapping)
-- Stripe.net (Payment Integration)
-- QuestPDF (PDF Report Generation)
+
+### Payments & Reports
+- Stripe.net
+- QuestPDF
+
+### Architecture & Patterns
 - Repository Pattern
 - Service Layer Pattern
-- Git & GitHub
+- DTO Pattern
+- Dependency Injection
 
 ---
 ## Prerequisites
@@ -257,39 +274,7 @@ Make sure you have the following installed:
 
 ---
 
-## Installation & Setup
-1. Clone the Repository
-   
-```
-git clone https://github.com/YOUR_USERNAME/EEcommerce.git
 
-```
-
-2.  Configure Database
-Update connection string in `appsettings.json` .
-
-Then run:
-```bash
-dotnet ef database update
-
-```
-3. Configure Stripe
-Inside `appsettings.json`:
-
-```json
-"Stripe": {
-  "SecretKey": "YOUR_SECRET_KEY",
-  "PublishableKey": "YOUR_PUBLISHABLE_KEY"
-}
-
-```
-4.  Run the Application
-
-```bash
-dotnet run
-
-```
-Or run from Visual Studio.
 
 ## 🌐 API Documentation & Preview
 
@@ -304,16 +289,80 @@ When running in development mode, you can access:
   https://localhost:5001/scalar
 
 You can test all endpoints directly from the Scalar UI.
+## Screenshots
+
+### API Documentation (Scalar)
+
+Full API documentation available using Scalar (OpenAPI).
+
+![Scalar Overview](images/ScalarOverview.png)
+
 
 ---
 
-## 📸 API Screenshots
+### User Registration
 
-### 🔹 API Overview (Scalar UI)
+New user can register using email, username, full name, phone number and password.
 
-### 🔹 JWT Authentication Example
+![Register](images/New-Register.png)
 
-### 🔹 Stripe Checkout Example
+### Email Confirmation
+
+After registration, user must confirm email before logging in.
+
+![Email Confirmation](images/successful-confirm.png)
+
+---
+
+## User Login
+
+Registered users can login and receive JWT token.
+
+![Login](images/login.png)
+
+## Admin Login
+
+Admin can login and access protected admin endpoints.
+
+![Admin Login](images/login-asAdmin.png)
+
+---
+
+## Get Products (Admin)
+
+Admin can retrieve products list with pagination.
+
+![Get Products](images/Get-Product.png)
+
+---
+
+## Add Product to Cart
+
+Authenticated user can add product to cart.
+
+![Create Cart](images/Create-Cart.png)
+
+---
+
+## Create Checkout Session (Stripe)
+
+User can create Stripe checkout session.
+
+![Checkout API](images/CheckOuts.png)
+
+## Stripe Hosted Payment Page
+
+User is redirected to Stripe secure payment page.
+
+![Stripe URL](images/stripe-url.png)
+
+---
+
+## Generate Products PDF Report
+
+Admin can generate PDF report of products.
+
+![PDF Report](images/pdf-product.png)
 
 ---
 
